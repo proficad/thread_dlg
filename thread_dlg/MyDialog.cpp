@@ -21,22 +21,24 @@ MyDialog::~MyDialog()
 {
 }
 
-UINT MyDialog::Upgrade_Library(LPVOID pParam)
+void MyDialog::Upgrade_Library()
 {
-	MyDialog* pDlg = static_cast<MyDialog*>(pParam);
 
 	const int li_count_items = 1000;
-	pDlg->m_ctrl_progress.SetRange(0, li_count_items);
-	pDlg->m_ctrl_progress.SetStep(1);
+	m_ctrl_progress.SetRange(0, li_count_items);
+	m_ctrl_progress.SetStep(1);
 
 	for (int li_i = 0; li_i < li_count_items; ++li_i)
 	{
-		pDlg->m_ctrl_progress.StepIt();
+		m_ctrl_progress.StepIt();
+		Sleep(5);
+		ProcessMessages();
 	}
 
-	pDlg->OnOK();// it crashes here
 
-	return 0;
+	OnOK();// it crashes here
+	//not if runs from the main thread
+
 }
 
 void MyDialog::DoDataExchange(CDataExchange* pDX)
@@ -56,9 +58,15 @@ END_MESSAGE_MAP()
 
 void MyDialog::OnBnClickedButton1()
 {
-	CWinThread* pThread = AfxBeginThread(&MyDialog::Upgrade_Library, this);
-	if (::WaitForSingleObject(pThread->m_hThread, 100))
-	{
+	Upgrade_Library();
+}
 
+void MyDialog::ProcessMessages()
+{
+	MSG msg;
+	CWinApp* pApp = AfxGetApp();
+	while (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
+	{
+		pApp->PumpMessage();
 	}
 }

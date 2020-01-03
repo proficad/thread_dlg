@@ -12,7 +12,7 @@ public:
 	virtual ~MyDialog();
 
 
-	static UINT Upgrade_Library(LPVOID pParam);
+	void Upgrade_Library();
 
 
 // Dialog Data
@@ -27,4 +27,6 @@ protected:
 public:
 	CProgressCtrl m_ctrl_progress;
 	afx_msg void OnBnClickedButton1();
+private:
+	static void ProcessMessages();
 };
