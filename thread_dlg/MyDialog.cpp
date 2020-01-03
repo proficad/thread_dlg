@@ -34,7 +34,7 @@ UINT MyDialog::Upgrade_Library(LPVOID pParam)
 		pDlg->m_ctrl_progress.StepIt();
 	}
 
-	pDlg->OnOK();
+	pDlg->OnOK();// it crashes here
 
 	return 0;
 }
