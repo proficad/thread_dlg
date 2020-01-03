@@ -11,6 +11,8 @@
 
 #include "thread_dlgDoc.h"
 #include "thread_dlgView.h"
+#include "MyDialog.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -28,6 +30,7 @@ BEGIN_MESSAGE_MAP(CthreaddlgView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CthreaddlgView::OnFilePrintPreview)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CthreaddlgView construction/destruction
@@ -127,3 +130,12 @@ CthreaddlgDoc* CthreaddlgView::GetDocument() const // non-debug version is inlin
 
 
 // CthreaddlgView message handlers
+
+
+void CthreaddlgView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	MyDialog l_dlg;
+	l_dlg.DoModal();
+
+	CView::OnLButtonDown(nFlags, point);
+}
