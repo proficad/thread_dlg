@@ -21,6 +21,24 @@ MyDialog::~MyDialog()
 {
 }
 
+UINT MyDialog::Upgrade_Library(LPVOID pParam)
+{
+	MyDialog* pDlg = static_cast<MyDialog*>(pParam);
+
+	const int li_count_items = 1000;
+	pDlg->m_ctrl_progress.SetRange(0, li_count_items);
+	pDlg->m_ctrl_progress.SetStep(1);
+
+	for (int li_i = 0; li_i < li_count_items; ++li_i)
+	{
+		pDlg->m_ctrl_progress.StepIt();
+	}
+
+	pDlg->OnOK();
+
+	return 0;
+}
+
 void MyDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -29,7 +47,14 @@ void MyDialog::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(MyDialog, CDialog)
+	ON_BN_CLICKED(IDC_BUTTON1, &MyDialog::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
 // MyDialog message handlers
+
+
+void MyDialog::OnBnClickedButton1()
+{
+	AfxBeginThread(&MyDialog::Upgrade_Library, this);
+}

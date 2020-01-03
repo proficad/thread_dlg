@@ -11,6 +11,10 @@ public:
 	MyDialog(CWnd* pParent = nullptr);   // standard constructor
 	virtual ~MyDialog();
 
+
+	static UINT Upgrade_Library(LPVOID pParam);
+
+
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_MyDialog };
@@ -22,4 +26,5 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CProgressCtrl m_ctrl_progress;
+	afx_msg void OnBnClickedButton1();
 };
