@@ -56,5 +56,9 @@ END_MESSAGE_MAP()
 
 void MyDialog::OnBnClickedButton1()
 {
-	AfxBeginThread(&MyDialog::Upgrade_Library, this);
+	CWinThread* pThread = AfxBeginThread(&MyDialog::Upgrade_Library, this);
+	if (::WaitForSingleObject(pThread->m_hThread, 100))
+	{
+
+	}
 }
